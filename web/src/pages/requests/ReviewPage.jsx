@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AppBar } from '../../components/ui/AppBar'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
+import { Field } from '../../components/ui/Field'
+import { Icons } from '../../lib/icons'
 
 export function ReviewPage() {
   const [rating, setRating] = useState(0)
@@ -9,27 +12,37 @@ export function ReviewPage() {
   const navigate = useNavigate()
 
   return (
-    <div className="mx-auto max-w-xl space-y-4 p-4">
-      <h1 className="text-2xl font-bold">Hizmeti Degerlendir</h1>
-      <Card>
-        <p className="font-semibold">Ahmet Usta - Ev Temizligi</p>
-        <div className="mt-3 flex gap-2">
+    <div className="app-page min-h-screen bg-[var(--background)]">
+      <AppBar title="Hizmeti Degerlendir" />
+      <div className="space-y-5 px-6 py-6">
+        <div className="text-center">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[var(--border)] text-[var(--text-secondary)]">
+            <Icons.Person className="text-4xl" />
+          </div>
+          <p className="mt-4 text-lg font-bold">Ahmet Usta</p>
+          <p className="text-sm text-[var(--text-secondary)]">Ev Temizligi</p>
+        </div>
+        <Card className="text-center">
+          <p className="text-lg font-bold">Hizmet deneyimini nasil degerlendirirsin?</p>
+          <div className="mt-5 flex justify-center gap-2">
           {[1, 2, 3, 4, 5].map((star) => (
-            <button key={star} onClick={() => setRating(star)} className="text-3xl">
+            <button key={star} onClick={() => setRating(star)} className="text-4xl text-amber-400">
               {star <= rating ? '★' : '☆'}
             </button>
           ))}
-        </div>
-        <textarea
-          value={comment}
-          onChange={(event) => setComment(event.target.value)}
-          className="mt-3 min-h-24 w-full rounded-xl border border-slate-300 p-3"
-          placeholder="Yorumunu buraya yazabilirsin..."
-        />
-      </Card>
-      <Button className="w-full" disabled={rating === 0} onClick={() => navigate('/home?tab=requests')}>
-        Degerlendirmeyi Gonder
-      </Button>
+          </div>
+          <Field
+            className="mt-6 text-left"
+            textarea
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
+            hint="Yorumunu buraya yazabilirsin..."
+          />
+        </Card>
+        <Button className="w-full" disabled={rating === 0} onClick={() => navigate('/home?tab=requests')}>
+          Degerlendirmeyi Gonder
+        </Button>
+      </div>
     </div>
   )
 }

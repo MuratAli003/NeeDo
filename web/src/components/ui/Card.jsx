@@ -1,3 +1,14 @@
+import { cn } from '../../lib/theme'
+
 export function Card({ children, className = '' }) {
-  return <div className={`rounded-2xl border border-slate-200 bg-white p-4 shadow-sm ${className}`}>{children}</div>
+  return (
+    <div
+      className={cn(
+        'rounded-[var(--radius-md)] border border-[var(--border)] bg-white p-4 shadow-[var(--shadow-card)]',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  )
 }
